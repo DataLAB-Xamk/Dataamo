@@ -105,3 +105,22 @@ def clean_company_name(name):
     name = re.sub(r'[ ]{2+}', ' ', name)
     name = re.sub(r'(\b' + r'\b|\b'.join(stopwords) + r'\b)', ' ', name)
     return name
+
+# For reference: reading all csv files from a data/ folder to a pandas dataframe
+import glob
+import pandas as pd
+
+files = glob.glob("data/*.csv")
+dataframes = []
+for file in files:
+    filedata = pd.read_csv(file, dtype=str, encoding='iso-8859-1', sep=";")
+    dataframes.append(filedata)
+alldata = pd.concat(dataframes, ignore_index=True)
+
+# The same for json files, using the patents_table function from above to process the data
+files = glob.glob("data/*.json")
+dataframes = []
+for file in files:
+    filedata = patents_table(file)
+    dataframes.append(filedata)
+allpatentdata = pd.concat(dataframes, ignore_index=True)
