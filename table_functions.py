@@ -15,7 +15,7 @@ def extract_jurisdiction(x):
 
 def get_english_text(texts):
     if isinstance(texts, list):
-        texts = [text for text in texts if text['lang'] == 'en']
+        texts = [text for text in texts if text.get('lang') == 'en']
         if texts:
             return texts[0]['text']
     return None
