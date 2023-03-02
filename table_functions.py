@@ -97,3 +97,11 @@ def inventors_table(file):
     inventors.rename(columns={'sequence': 'inventor_sequence'}, inplace=True)
     return inventors
 
+def clean_company_name(name):
+    stopwords = ['oy', 'ab', 'ky', 'oyj', 'gmbh', 'ltd', 'rf', 'seura', 'r s sr', 'ry', 'r y',
+                 'asunto oy', 'as oy', 'kiinteistö oy', 'ja', 'tmi', 't mi']
+    name = name.lower()
+    name = re.sub(r'[^a-z0-9åäöü]', ' ', name)
+    name = re.sub(r'[ ]{2+}', ' ', name)
+    name = re.sub(r'(\b' + r'\b|\b'.join(stopwords) + r'\b)', ' ', name)
+    return name
